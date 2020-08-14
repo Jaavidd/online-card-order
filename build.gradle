@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+
+
+    //spring boot
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // cloud config
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:2.1.3.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:2.1.3.RELEASE'
+    compile 'org.springframework.boot:spring-boot-devtools:2.3.0.RELEASE'
+
+//    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    // postgres
+    implementation 'org.postgresql:postgresql:42.2.5'
+
+    // log config
+    implementation 'net.logstash.logback:logstash-logback-encoder:5.2'
+
+
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
+    //mapstruct
+    implementation('org.mapstruct:mapstruct-jdk8:1.3.0.Final')
+    annotationProcessor('org.mapstruct:mapstruct-jdk8:1.3.0.Final')
+    annotationProcessor('org.mapstruct:mapstruct-processor:1.3.0.Final')
+
+//    swagger
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+}

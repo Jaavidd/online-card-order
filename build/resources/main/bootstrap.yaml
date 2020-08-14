@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: bp.mobile_user_registration_api
+  cloud:
+    consul:
+      config:
+        enabled: true
+      host: consul.service.consul
+      port: 8500
+      enabled: true
+    vault:
+      host: vault.service.consul
+      port: 8200
+      scheme: http
+      authentication: token
+      token: s.s85wIz1DALYw8UjxnNtigCsb
+      enabled: true
