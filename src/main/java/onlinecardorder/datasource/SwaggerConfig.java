@@ -23,7 +23,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("az.bankrespublika.mobileshobe.cardstorage"))
+                .apis(RequestHandlerSelectors.basePackage("onlinecardorder"))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .paths(PathSelectors.any())
                 .build()

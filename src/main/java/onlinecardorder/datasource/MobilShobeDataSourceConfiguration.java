@@ -59,7 +59,7 @@ public class MobilShobeDataSourceConfiguration {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setJpaPropertyMap(jpaProperties());
-        em.setPackagesToScan("az.bankrespublika.mobileshobe.cardstorage.entity.mobilshobe");
+        em.setPackagesToScan("onlinecardorder.entity");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         return em;
