@@ -1,12 +1,17 @@
 package onlinecardorder.entity;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -26,7 +31,8 @@ public class RegisteredCardEntity {
     private String fatherName;
 
     @Column(name = "birthday")
-    private String birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthday;
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -34,12 +40,12 @@ public class RegisteredCardEntity {
     @Column(name = "fully_paid")
     private boolean fullyPaid;
 
-
     @Column(name="url")
     private String url;
 
     @Column(name = "card_type")
     private String cardType;
+
     @Column(name="currency")
     private String currency;
 
@@ -57,7 +63,7 @@ public class RegisteredCardEntity {
     private static long last = 0;
 
     public static long getID() {
-        // 10 digits.
+        // 8 digits.
         long id = System.currentTimeMillis() % LIMIT;
         if ( id <= last ) {
             id = (last + 1) % LIMIT;
@@ -117,11 +123,11 @@ public class RegisteredCardEntity {
         return this;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public RegisteredCardEntity setBirthday(String birthday) {
+    public RegisteredCardEntity setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }

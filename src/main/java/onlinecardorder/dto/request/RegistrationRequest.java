@@ -1,11 +1,16 @@
 package onlinecardorder.dto.request;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class RegistrationRequest implements Serializable {
     private String firstName;
     private String lastName;
     private String fatherName;
-    private String birthday;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthday;
     private String phoneNumber;
     private String url;
     private String cardType;
@@ -75,11 +80,11 @@ public class RegistrationRequest implements Serializable {
         return this;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public RegistrationRequest setBirthday(String birthday) {
+    public RegistrationRequest setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }

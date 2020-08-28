@@ -1,11 +1,14 @@
 package onlinecardorder.dto.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class RegisteredCardDto {
     private Long id;
     private String firstName;
     private String lastName;
     private String fatherName;
-    private String birthday;
+    private LocalDate birthday;
     private String phoneNumber;
     private String url;
     private boolean fullyPaid;
@@ -22,11 +25,11 @@ public class RegisteredCardDto {
     }
 
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public RegisteredCardDto setBirthday(String birthday) {
+    public RegisteredCardDto setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }
