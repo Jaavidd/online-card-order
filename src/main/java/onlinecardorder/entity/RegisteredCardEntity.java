@@ -1,16 +1,12 @@
 package onlinecardorder.entity;
 
 
-import onlinecardorder.dto.request.RegistrationRequest;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
 
 
 @Entity
@@ -18,7 +14,6 @@ import java.time.LocalDate;
 public class RegisteredCardEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name")
@@ -31,14 +26,14 @@ public class RegisteredCardEntity {
     private String fatherName;
 
     @Column(name = "birthday")
-//    @DateTimeFormat(pattern = "dd-mm-yyyy")
-    private String bithday;
+    private String birthday;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "is_paid")
-    private boolean isPaid = false;
+    @Column(name = "fully_paid")
+    private boolean fullyPaid;
+
 
     @Column(name="url")
     private String url;
@@ -48,30 +43,41 @@ public class RegisteredCardEntity {
     @Column(name="currency")
     private String currency;
 
-    public String getCardType() {
-        return cardType;
+
+    @Column(name = "partially_paid")
+    private boolean partiallyPaid;
+
+    @Column(name="card_price")
+    private Double cardPrice=100.0;
+
+    @Column(name="balance")
+    private Double balance=0.0;
+
+    private static final long LIMIT = 100000000L;
+    private static long last = 0;
+
+    public static long getID() {
+        // 10 digits.
+        long id = System.currentTimeMillis() % LIMIT;
+        if ( id <= last ) {
+            id = (last + 1) % LIMIT;
+        }
+        return last = id;
+    }
+    public boolean isFullyPaid() {
+        return fullyPaid;
     }
 
-    public RegisteredCardEntity setCardType(String cardType) {
-        this.cardType = cardType;
+    public RegisteredCardEntity setFullyPaid(boolean fullyPaid) {
+        this.fullyPaid = fullyPaid;
         return this;
     }
-
-    public String getCurrency() {
-        return currency;
+    public Double getBalance() {
+        return balance;
     }
 
-    public RegisteredCardEntity setCurrency(String currency) {
-        this.currency = currency;
-        return this;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public RegisteredCardEntity setUrl(String url) {
-        this.url = url;
+    public RegisteredCardEntity setBalance(Double balance) {
+        this.balance = balance;
         return this;
     }
 
@@ -111,12 +117,12 @@ public class RegisteredCardEntity {
         return this;
     }
 
-    public String getBithday() {
-        return bithday;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public RegisteredCardEntity setBithday(String bithday) {
-        this.bithday = bithday;
+    public RegisteredCardEntity setBirthday(String birthday) {
+        this.birthday = birthday;
         return this;
     }
 
@@ -129,15 +135,69 @@ public class RegisteredCardEntity {
         return this;
     }
 
-    public boolean isPaid() {
-        return isPaid;
+
+    @Override
+    public String toString() {
+        return "RegisteredCardEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", fullyPaid=" + fullyPaid +
+                ", url='" + url + '\'' +
+                ", cardType='" + cardType + '\'' +
+                ", currency='" + currency + '\'' +
+                ", partiallyPaid=" + partiallyPaid +
+                ", cardPrice=" + cardPrice +
+                ", balance=" + balance +
+                '}';
     }
 
-    public RegisteredCardEntity setPaid(boolean paid) {
-        isPaid = paid;
+    public String getUrl() {
+        return url;
+    }
+
+    public RegisteredCardEntity setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public RegisteredCardEntity setCardType(String cardType) {
+        this.cardType = cardType;
+        return this;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public RegisteredCardEntity setCurrency(String currency) {
+        this.currency = currency;
         return this;
     }
 
 
+    public boolean isPartiallyPaid() {
+        return partiallyPaid;
+    }
 
+    public RegisteredCardEntity setPartiallyPaid(boolean partiallyPaid) {
+        this.partiallyPaid = partiallyPaid;
+        return this;
+    }
+
+    public Double getCardPrice() {
+        return cardPrice;
+    }
+
+    public RegisteredCardEntity setCardPrice(Double cardPrice) {
+        this.cardPrice = cardPrice;
+        return this;
+    }
 }

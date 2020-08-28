@@ -3,6 +3,10 @@ package onlinecardorder.repository;
 import onlinecardorder.entity.RegisteredCardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OnlineCardRegistrationRepository extends JpaRepository<RegisteredCardEntity, Long> {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
+public interface OnlineCardRegistrationRepository extends JpaRepository<RegisteredCardEntity, Long> {
+            ArrayList<RegisteredCardEntity> findAll();
 }

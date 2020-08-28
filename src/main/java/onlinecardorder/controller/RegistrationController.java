@@ -1,6 +1,7 @@
 package onlinecardorder.controller;
 
 import onlinecardorder.dto.request.RegistrationRequest;
+import onlinecardorder.dto.response.CommonResponse;
 import onlinecardorder.dto.response.RegistrationResponse;
 import onlinecardorder.service.business.OrderRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class RegistrationController {
     }
 
     @PostMapping(value = "/register")
-    public RegistrationResponse storePayment(@RequestBody RegistrationRequest request, @RequestParam(required = false) String lang) {
-        return orderRegistrationService.registerCard(request);
+    public ResponseEntity<CommonResponse> storePayment(@RequestBody RegistrationRequest request, @RequestParam(required = false) String lang) {
+        return CommonResponse.success(orderRegistrationService.registerCard(request),lang);
     }
 }

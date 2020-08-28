@@ -23,7 +23,10 @@ public class OrderRegistrationService {
                     .setCardType(request.getCardType())
                     .setCurrency(request.getCurrency())
                     .setUrl(request.getUrl())
-                    .setPhoneNumber(request.getPhoneNumber());
+                    .setPhoneNumber(request.getPhoneNumber())
+                    .setBalance(0.0)
+                    .setCardPrice(100.0);
+
             RegisteredCardDto savedDto=cardOrderService.registerCard(dto);
             return new RegistrationResponse().setFirstName(savedDto.getFirstName())
                                              .setLastName(savedDto.getLastName())
