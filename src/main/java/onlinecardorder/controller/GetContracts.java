@@ -22,8 +22,12 @@ public class GetContracts {
     public GetContracts(CardOrderService cardOrderService) {
         this.cardOrderService = cardOrderService;
     }
-    @GetMapping("/get_all_contracts")
-    public ResponseEntity<CommonResponse> getAll(@RequestParam(name = "3 options : not paid,fully paid,partially paid") String status,@RequestParam(required = false) String lang){
+    @GetMapping("/get_list/fully_paid")
+    public ResponseEntity<CommonResponse> fullyPaid(@RequestParam(name = "3 options : not paid,fully paid,partially paid") String status,@RequestParam(required = false) String lang){
             return CommonResponse.success(cardOrderService.getContracts(status),lang);
+    }
+    @GetMapping("/get_list/partially_paid")
+    public ResponseEntity<CommonResponse> getAll(@RequestParam(name = "3 options : not paid,fully paid,partially paid") String status,@RequestParam(required = false) String lang){
+        return CommonResponse.success(cardOrderService.getContracts(status),lang);
     }
 }
