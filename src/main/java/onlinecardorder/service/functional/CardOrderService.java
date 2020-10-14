@@ -10,6 +10,7 @@ import onlinecardorder.repository.OnlineCardRegistrationRepository;
 import onlinecardorder.util.FObjectUtils;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,25 +48,36 @@ public class CardOrderService {
                 .save(RegisteredCardsMapper.INSTANCE.toEntity(registeredCardDto)));
 
     }
-    public GetContractsResponse getContracts(String status){
+    public GetContractsResponse getAllContracts(){
         ArrayList<RegisteredCardEntity> allContracts= onlineCardRegistrationRepository.findAll();
-        HashMap<String,ArrayList<RegisteredCardDto>> map=new HashMap<>(){{
-                put("not paid", new ArrayList<>());
-                put("partially paid", new ArrayList<>());
-                put("fully paid", new ArrayList<>());
-            }};
-
-        for(RegisteredCardEntity entity: allContracts){
-            if(entity.isFullyPaid())
-                map.get("fully paid").add(RegisteredCardsMapper.INSTANCE.toDto(entity));
-            else if(entity.isPartiallyPaid())
-                map.get("partially paid").add(RegisteredCardsMapper.INSTANCE.toDto(entity));
-            else
-                map.get("not paid").add(RegisteredCardsMapper.INSTANCE.toDto(entity));
-        }
-
-        return new GetContractsResponse().setAllContracts(map.get(status));
+        ArrayList<RegisteredCardDto> dto=new ArrayList<>();
+        allContracts.forEach(contract -> dto.add(RegisteredCardsMapper.INSTANCE.toDto(contract)));
+        return new GetContractsResponse().setAllContracts(dto);
     }
+
+    public GetContractsResponse getFullyContracts() {
+        ArrayList<RegisteredCardEntity> allContracts = onlineCardRegistrationRepository.findAll();
+        ArrayList<RegisteredCardDto> dto = new ArrayList<>();
+
+        for (RegisteredCardEntity entity : allContracts) {
+            if (entity.isFullyPaid())
+                dto.add(RegisteredCardsMapper.INSTANCE.toDto(entity));
+        }
+        return new GetContractsResponse().setAllContracts(dto);
+    }
+
+
+    public GetContractsResponse getPartiallyContracts() {
+        ArrayList<RegisteredCardEntity> allContracts = onlineCardRegistrationRepository.findAll();
+        ArrayList<RegisteredCardDto> dto = new ArrayList<>();
+
+        for (RegisteredCardEntity entity : allContracts) {
+            if (entity.isPartiallyPaid())
+                dto.add(RegisteredCardsMapper.INSTANCE.toDto(entity));
+        }
+        return new GetContractsResponse().setAllContracts(dto);
+    }
+
     public String checkUniCode(Long unicode){
         Optional<RegisteredCardEntity> entity=onlineCardRegistrationRepository.findById(unicode);
         return entity.isEmpty() ? "unicode does not exist" : "unicode exist";

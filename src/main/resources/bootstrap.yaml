@@ -1,6 +1,6 @@
 spring:
   application:
-    name: bp.mobile_user_registration_api
+    name: #confidential
   cloud:
     consul:
       config:
@@ -13,5 +13,5 @@ spring:
       port: 8200
       scheme: http
       authentication: token
-      token: s.s85wIz1DALYw8UjxnNtigCsb
+      token: #  confidential
       enabled: true

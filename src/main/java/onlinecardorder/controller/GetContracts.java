@@ -23,11 +23,17 @@ public class GetContracts {
         this.cardOrderService = cardOrderService;
     }
     @GetMapping("/get_list/fully_paid")
-    public ResponseEntity<CommonResponse> fullyPaid(@RequestParam(name = "3 options : not paid,fully paid,partially paid") String status,@RequestParam(required = false) String lang){
-            return CommonResponse.success(cardOrderService.getContracts(status),lang);
+    public ResponseEntity<CommonResponse> getfullyPaid(@RequestParam(required = false) String lang){
+            return CommonResponse.success(cardOrderService.getFullyContracts(),lang);
     }
     @GetMapping("/get_list/partially_paid")
-    public ResponseEntity<CommonResponse> getAll(@RequestParam(name = "3 options : not paid,fully paid,partially paid") String status,@RequestParam(required = false) String lang){
-        return CommonResponse.success(cardOrderService.getContracts(status),lang);
+    public ResponseEntity<CommonResponse> getPartiallyPaid(@RequestParam(required = false) String lang){
+        return CommonResponse.success(cardOrderService.getPartiallyContracts(),lang);
+    }
+
+
+    @GetMapping("/get_list/get_all")
+    public ResponseEntity<CommonResponse> getAll(@RequestParam(required = false) String lang){
+        return CommonResponse.success(cardOrderService.getAllContracts(),lang);
     }
 }
